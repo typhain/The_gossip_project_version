@@ -30,13 +30,16 @@
        </ul>
        <form class="form-inline my-2 my-lg-0">
          <% if current_user == nil %>
-         <a <%= link_to "Login", sessions_new_path, :class => "btn btn-outline-primary" %> </a>
+         <a <%= link_to "Login", sessions_new_path, :class => "btn btn-primary" %> </a>
+         <a <%= link_to "Create Account", new_user_path, :class => "btn btn-outline-primary" %> </a>
          <% else %>
          <a <%= link_to "Logout", sessions_destroy_path, :class => "btn btn-outline-danger" %> </a>
          <% end %>
        </form>
      </div>
    </nav>
-    <%= yield %>
+
   </body>
 </html>
+
+  <%= yield %>

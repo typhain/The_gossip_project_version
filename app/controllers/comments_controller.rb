@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   include SessionsHelper
-
+  before_action :authenticate_user, only: [:index, :show, :create, :new]
   def new
     @comment = Comment.new
     @gossip = Gossip.find(params[:gossip_id])
@@ -47,4 +47,14 @@ def update
   # pour info, le contenu de ce formulaire sera accessible dans le hash params
   # Une fois la modification faite, on redirige généralement vers la méthode show (pour afficher le potin modifié)
 end
+
+private
+
+def authenticate_user
+  unless current_user
+    flash[:danger] = "Please log in."
+    redirect_to new_session_path
+  end
+end
+
 end

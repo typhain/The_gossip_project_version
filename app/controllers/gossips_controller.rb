@@ -1,6 +1,7 @@
 class GossipsController < ApplicationController
 
   include SessionsHelper
+  before_action :authenticate_user, only: [:index, :show, :create, :new]
 
 
   def index
@@ -10,6 +11,7 @@ class GossipsController < ApplicationController
   def show
     @gossip = Gossip.find(params[:id])
     @comment = Comment.new
+    @user = current_user
     #@comment_id = Comment.find(params[:id])
   end
 
@@ -25,10 +27,13 @@ class GossipsController < ApplicationController
 
       if @gossip.save # essaie de sauvegarder en base @gossip
         redirect_to root_path # si ça marche, il redirige vers la page d'index du site
+      # else if current_user == nil
+      #  redirect_to new_session_path
       else
         # sinon, il render la view new (qui est celle sur laquelle on est déjà)
         render new_gossip_path
       end
+    # end
   end
 
   def edit
@@ -54,4 +59,14 @@ end
   @gossip.destroy
   redirect_to gossips_path
   end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
+  end
+
 end

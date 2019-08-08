@@ -16,8 +16,10 @@
       <div class="d-flex w-100 justify-content-between">
       <a <%= link_to "Comment", new_gossip_comment_path(@gossip.id), :class => "btn btn-primary" %> </a>
       <div>
+        <% if @user.id == @gossip.user.id %>
       <a <%= link_to "Edit", edit_gossip_path(@gossip.id), :class => "btn btn-outline-primary" %> </a>
       <a <%= link_to "Delete", gossip_path(@gossip.id), :class => "btn btn-outline-danger", :method => :delete%> </a>
+      <% end %>
     </div>
   </div>
 </div>
