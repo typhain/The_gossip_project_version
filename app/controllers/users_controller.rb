@@ -16,6 +16,12 @@ class UsersController < ApplicationController
     u.password = params[:password]
     u.city_id = 20
     u.save
+
+  # Redirect to root_path with stored session id
+   session[:user_id] = u.id
+   redirect_to root_path
+
+
     # a = City.find_by(:name => params[:city])
     # puts "@" * 100
     # puts a.blank?
