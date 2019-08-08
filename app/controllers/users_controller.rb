@@ -3,19 +3,22 @@ class UsersController < ApplicationController
   end
 
   def show
+    puts "user show" * 10
     @user = User.find(params[:id])
   end
 
   def new
-    @user = User.new
+    puts "user new" * 10
+    #@user = User.new
   end
 
   def create
+    puts "user create" * 10
     u = User.new
     u.email = params[:email]
     u.first_name = params[:first_name]
     u.password = params[:password]
-    u.city_id = 20
+    u.city_id = City.all.sample.id
     u.save
 
   # Redirect to root_path with stored session id
