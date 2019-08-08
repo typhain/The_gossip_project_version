@@ -9,11 +9,10 @@ Rails.application.routes.draw do
   resources :users
   resources :cities
   resources :comments
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :gossips do
     resources :comments
-
-  resources :sessions, only: [:new, :create, :destroy]
   end
 
 # WE USE THE OLD METHOD TO SHOW STATIC PAGES (no need to have index, show, create...)
