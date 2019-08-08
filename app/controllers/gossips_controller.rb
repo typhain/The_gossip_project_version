@@ -1,5 +1,8 @@
 class GossipsController < ApplicationController
 
+  include SessionsHelper
+
+
   def index
     @gossips = Gossip.all
   end
@@ -15,9 +18,10 @@ class GossipsController < ApplicationController
   end
 
   def create
+    @user = current_user
     # @gossip = Gossip.create(:user => User.all.sample, :title => params[:title], :content => params[:content])
     # redirect_to root_path
-      @gossip = Gossip.new(:user => User.all.sample, :title => params[:title], :content => params[:content]) # avec xxx qui sont les données obtenues à partir du formulaire
+      @gossip = Gossip.new(:user => @user, :title => params[:title], :content => params[:content]) # avec xxx qui sont les données obtenues à partir du formulaire
 
       if @gossip.save # essaie de sauvegarder en base @gossip
         redirect_to root_path # si ça marche, il redirige vers la page d'index du site

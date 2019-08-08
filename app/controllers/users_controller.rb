@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     u = User.new
     u.email = params[:email]
+    u.first_name = params[:first_name]
     u.password = params[:password]
     u.city_id = 20
     u.save
